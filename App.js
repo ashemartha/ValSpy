@@ -30,16 +30,25 @@ function Search() {
 }
 
 function Profile() {
-  const user={
+  /*const user={
     username:'ashemartha',
     level:52
   };
-
   return(
     <SafeAreaView style={styles.container}>
       <Text>Username: {user.username}</Text>
       <Text>Level: {user.level}</Text>
     </SafeAreaView>
+  );*/
+  return(
+    <View style={styles.profileContainer} >
+      <View style={styles.balanceContainer}>
+          <Text>WWW</Text>         
+      </View>
+      <View style={styles.photoContainer}>
+
+      </View>
+    </View>
   );
 }
 
@@ -62,9 +71,37 @@ export default function App() {
 
 const styles = StyleSheet.create({
   container: {
+    flex:1,
+  },
+  profileContainer: {
     flex: 1,
     backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
+    margin:20,
+    
+    borderStyle:'solid',
+    borderRadius:20,
+    shadowColor: "#000",
+    shadowOffset: {
+	    width: 0,
+	    height: 5,
+    },
+    shadowOpacity: 0.34,
+    shadowRadius: 6.27,
+    elevation: 10,
+    
   },
+  balanceContainer: {
+    backgroundColor:'gray',
+    marginTop:30,
+    width:120,
+    borderStyle:'solid',
+    borderRadius:20,
+    marginLeft:190,
+  },
+  photoContainer: {
+    backgroundColor:'gray',
+    alignItems:'center',
+    textAlign:'center',
+  }
+
 });
