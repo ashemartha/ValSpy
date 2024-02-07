@@ -34,7 +34,7 @@ function Profile() {
     username:'ashemartha',
     level:52
   };
-
+  /*need to make changes on profile view(update style)*/
   return(
     <SafeAreaView style={styles.container}>
       <Text>Username: {user.username}</Text>
