@@ -10,6 +10,8 @@ import { StyleSheet,
   } from 'react-native';
 
 import { getAgents } from '../services/standardRequestService';
+import { getWeapons } from '../services/standardRequestService';
+
 import { useEffect, useState } from 'react';
 
 
@@ -47,12 +49,26 @@ export default function Home() {
   useEffect(() => {
     getAgents().then(setAgents).catch(console.error);
   }, []);
+
+  useEffect(() => {
+    getWeapons().then(setWeapons).catch(console.error);
+  }, []);
   
     return(
       <ScrollView contentContainerStyle={styles.outterContainer}>
         <CollapsibleContainer
           title="Agents"
           items={agents.filter(agent => agent.isPlayableCharacter)}
+          renderItem={agent => (
+            <TouchableOpacity key={agent.uuid} style={styles.item}>
+              <Image source={{ uri: agent.displayIcon }} style={{width: 50, height: 50}} />
+              <Text style={{marginTop: 8}}>{agent.displayName}</Text>
+            </TouchableOpacity>
+          )}
+        />
+        <CollapsibleContainer
+          title="Weapons"
+          items={weapons}
           renderItem={agent => (
             <TouchableOpacity key={agent.uuid} style={styles.item}>
               <Image source={{ uri: agent.displayIcon }} style={{width: 50, height: 50}} />
