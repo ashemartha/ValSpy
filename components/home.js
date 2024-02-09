@@ -69,10 +69,13 @@ export default function Home() {
         <CollapsibleContainer
           title="Weapons"
           items={weapons}
-          renderItem={agent => (
-            <TouchableOpacity key={agent.uuid} style={styles.item}>
-              <Image source={{ uri: agent.displayIcon }} style={{width: 50, height: 50}} />
-              <Text style={{marginTop: 8}}>{agent.displayName}</Text>
+          renderItem={weapon => (
+            <TouchableOpacity key={weapon.uuid} style={[styles.item, {width: '100%', height: 200 }]}>
+              <Image
+              source={{ uri: weapon.displayIcon }}
+              style={{width: '100%', height: 100}}
+              resizeMode="contain"/>
+              <Text style={{marginTop: 8}}>{weapon.displayName}</Text>
             </TouchableOpacity>
           )}
         />
