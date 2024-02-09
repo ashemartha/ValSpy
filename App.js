@@ -1,10 +1,13 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, TextInput, View } from 'react-native';
+import { StyleSheet, Text, TextInput, View, ScrollView } from 'react-native';
 import { NavigationContainer} from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useState } from 'react';
+import Icon from 'react-native-vector-icons/MaterialIcons';
+import React  from 'react';
+import {  Animated, TouchableOpacity } from 'react-native';
 
 const Tab = createBottomTabNavigator();
 
@@ -17,7 +20,7 @@ function History() {
 }
 
 function Search() {
-  const [SearchQuery,setSearchQuery]=useState('');
+  /*const [SearchQuery,setSearchQuery]=useState('');
   const handleSearch=(text)=>{
     console.log(text);
     setSearchQuery(text);
@@ -26,14 +29,38 @@ function Search() {
     <SafeAreaView style={styles.container}>
       <TextInput placeholder='Search' value={SearchQuery} onChangeText={handleSearch} autoFocus={true}/>
     </SafeAreaView>
+  )*/
+  const value = useState(new Animated.VlaueXY({x: 0,y: 0}))[0]
+  function moveBall(){
+    
+  }
+  return(
+    <View>
+      <View>
+        <View style={{
+          width : 100,
+          height: 100,
+          borderRadius : 100 / 2,
+          backgroundColor: 'blue', 
+        }} />
+      </View>
+      <TouchableOpacity onPress={moveBall}>
+        <Text>
+          Hey click me !
+        </Text>
+      </TouchableOpacity>
+    </View>
   )
 }
 
 function Profile() {
   return(
-    <View style={styles.profileContainer} >
+    <ScrollView contentContainerStyle={styles.profileContainer} >
       <View style={styles.balanceContainer}>
-          <Text>balance</Text>         
+          <View style={styles.wallet}>
+            <Icon style={styles.icon} name="wallet" ></Icon>
+          </View>
+          <Text>balance</Text>     
       </View>
       <View style={styles.photoContainer}>
         <Text>photo</Text>
@@ -54,7 +81,7 @@ function Profile() {
       <View style={styles.favouriteAgent}>
           <Text>Favourite Agent</Text>
       </View>
-    </View>
+    </ScrollView>
   );
 }
 
@@ -96,8 +123,18 @@ const styles = StyleSheet.create({
     justifyContent:'flex-start',
     alignItems:'center',
   },
+  icon: {
+    color: '#4C4C4C',
+    fontSize: 17,
+  },
+  wallet:{
+    color: '#4C4C4C',
+    fontSize: 17,
+    marginRight:80,
+    marginTop:20, 
+  },
   balanceContainer: {
-    backgroundColor:'gray',
+    backgroundColor:'#BABABA',
     marginTop:30,
     width:120,
     height:40,
@@ -108,7 +145,7 @@ const styles = StyleSheet.create({
     marginLeft:190,
   },
   photoContainer: {
-    backgroundColor:'red',
+    backgroundColor:'#BABABA',
     alignItems:'center',
     textAlign:'center',
     justifyContent:'center',
@@ -124,7 +161,7 @@ const styles = StyleSheet.create({
     alignSelf: 'flex-start',
   },
   statContainer: {
-    backgroundColor:'gray',
+    backgroundColor:'#BABABA',
     width:120,
     borderStyle:'solid',
     borderTopRightRadius:20,
@@ -139,7 +176,7 @@ const styles = StyleSheet.create({
     fontSize:20,
   },
   favouriteAgent: {
-    backgroundColor:'gray',
+    backgroundColor:'#BABABA',
     width:260,
     height:120,
     justifyContent:'center',
