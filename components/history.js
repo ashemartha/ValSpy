@@ -4,7 +4,7 @@ import { StyleSheet,
 
 export default function History() {
     return(
-      <View>
+      <View style={styles.container}>
         <Text> History View </Text>
       </View>
     )
@@ -12,6 +12,8 @@ export default function History() {
 
   const styles = StyleSheet.create({
     container: {
-      flex: 1
+      flex: 1,
+      justifyContent: 'center',
+      alignItems: 'center',
     }
 });

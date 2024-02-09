@@ -36,11 +36,15 @@ export default function App() {
         <Image source={logo} style ={{ width: 98, height: 30 }}/>
         <View>
           <View style={styles.topRightNav}>
-            <TouchableOpacity onPress={() => setSelectedTab('Search')}>
-              <Icon style={styles.icon} name="search" size={24} />
+            <TouchableOpacity
+            onPress={() => setSelectedTab('Search')}
+            style={selectedTab === 'Search' ? styles.selectedTab : null}>
+              <Icon style={[styles.icon, selectedTab === 'Search' ? styles.selectedTab : null]} name="search" size={24} />
             </TouchableOpacity>
-            <TouchableOpacity onPress={() => setSelectedTab('Profile')}>
-              <Icon style={styles.icon} name="account-circle" size={24} />
+            <TouchableOpacity
+            onPress={() => setSelectedTab('Profile')}
+            style={selectedTab === 'Profile' ? styles.selectedTab : null}>
+              <Icon style={[styles.icon, selectedTab === 'Profile' ? styles.selectedTab : null]} name="account-circle" size={24} />
             </TouchableOpacity>
           </View>
         </View>
@@ -49,13 +53,17 @@ export default function App() {
       {displayedComponent}
       </View>
       <View style={styles.bottomNav}>
-        <TouchableOpacity style={styles.tabButton} onPress={() => setSelectedTab('Home')}> 
-          <Icon style={styles.icon} name="home" size={34}/>
-          <Text>Home</Text>
+        <TouchableOpacity
+        style={styles.tabButton}
+        onPress={() => setSelectedTab('Home')}> 
+          <Icon style={[styles.icon, selectedTab === 'Home' ? styles.selectedTab : null]} name="home" size={34}/>
+          <Text style={selectedTab === 'Home' ? styles.selectedTab : null}>Home</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.tabButton} onPress={() => setSelectedTab('History')}> 
-          <Icon style={styles.icon} name="history" size={34}/>
-          <Text>History</Text>
+        <TouchableOpacity
+        style={styles.tabButton}
+        onPress={() => setSelectedTab('History')}> 
+          <Icon style={[styles.icon, selectedTab === 'History' ? styles.selectedTab : null]} name="history" size={34}/>
+          <Text style={selectedTab === 'History' ? styles.selectedTab : null}>History</Text>
         </TouchableOpacity>
         
       </View>
@@ -103,5 +111,8 @@ const styles = StyleSheet.create({
   tabButton: {
     alignItems: 'center',
     justifyContent: 'center',
-  }
+  },
+  selectedTab: {
+    color: '#fa4454',
+  },
 });
