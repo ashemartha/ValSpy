@@ -1,70 +1,118 @@
+import React, { useState } from 'react';
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, TextInput, View } from 'react-native';
-import { NavigationContainer} from '@react-navigation/native';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { SafeAreaProvider } from 'react-native-safe-area-context';
+import { StyleSheet,
+  Text,
+  TextInput,
+  View,
+  Image,
+  Platform } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { useState } from 'react';
-
-const Tab = createBottomTabNavigator();
-
-function History() {
-  return(
-    <View>
-      <Text> History View </Text>
-    </View>
-  )
-}
-
-function Search() {
-  const [SearchQuery,setSearchQuery]=useState('');
-  const handleSearch=(text)=>{
-    console.log(text);
-    setSearchQuery(text);
-  }
-  return(
-    <SafeAreaView style={styles.container}>
-      <TextInput placeholder='Search' value={SearchQuery} onChangeText={handleSearch} autoFocus={true}/>
-    </SafeAreaView>
-  )
-}
-
-function Profile() {
-  const user={
-    username:'ashemartha',
-    level:52
-  };
-
-  return(
-    <SafeAreaView style={styles.container}>
-      <Text>Username: {user.username}</Text>
-      <Text>Level: {user.level}</Text>
-    </SafeAreaView>
-  );
-}
-
+import { TouchableOpacity } from 'react-native';
+import Icon from 'react-native-vector-icons/MaterialIcons';
+import Home from './components/home';
+import Search from './components/search';
+import Profile from './components/profile';
+import History from './components/history';
 
 export default function App() {
+  
+  const logo = require('./assets/logo.png');
+  const [selectedTab, setSelectedTab] = useState('Home');
+
+  let displayedComponent;
+  if (selectedTab === 'Home') {
+    displayedComponent = <Home />;
+  } else if (selectedTab === 'History') {
+    displayedComponent = <History />;
+  } else if (selectedTab === 'Profile') {
+    displayedComponent = <Profile />;
+  } else if (selectedTab === 'Search') {
+    displayedComponent = <Search />;
+  }
+
   return (
-    <SafeAreaProvider>
-      <NavigationContainer>
-      <Tab.Navigator>
-          <Tab.Screen name="Profile" component={Profile}  />
-          <Tab.Screen name="Search" component={Search}  />
-          <Tab.Screen name="History" component={History}  />
-        </Tab.Navigator> 
-    </NavigationContainer>
-    </SafeAreaProvider>
-    
+    <View style={styles.container}>
+      <View style={styles.topNav}>
+        <Image source={logo} style ={{ width: 98, height: 30 }}/>
+        <View>
+          <View style={styles.topRightNav}>
+            <TouchableOpacity
+            onPress={() => setSelectedTab('Search')}
+            style={selectedTab === 'Search' ? styles.selectedTab : null}>
+              <Icon style={[styles.icon, selectedTab === 'Search' ? styles.selectedTab : null]} name="search" size={24} />
+            </TouchableOpacity>
+            <TouchableOpacity
+            onPress={() => setSelectedTab('Profile')}
+            style={selectedTab === 'Profile' ? styles.selectedTab : null}>
+              <Icon style={[styles.icon, selectedTab === 'Profile' ? styles.selectedTab : null]} name="account-circle" size={24} />
+            </TouchableOpacity>
+          </View>
+        </View>
+      </View>
+      <View style={styles.body}>
+      {displayedComponent}
+      </View>
+      <View style={styles.bottomNav}>
+        <TouchableOpacity
+        style={styles.tabButton}
+        onPress={() => setSelectedTab('Home')}> 
+          <Icon style={[styles.icon, selectedTab === 'Home' ? styles.selectedTab : null]} name="home" size={34}/>
+          <Text style={selectedTab === 'Home' ? styles.selectedTab : null}>Home</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+        style={styles.tabButton}
+        onPress={() => setSelectedTab('History')}> 
+          <Icon style={[styles.icon, selectedTab === 'History' ? styles.selectedTab : null]} name="history" size={34}/>
+          <Text style={selectedTab === 'History' ? styles.selectedTab : null}>History</Text>
+        </TouchableOpacity>
+        
+      </View>
+    </View>
     
   );
 }
 
 const styles = StyleSheet.create({
   container: {
+    flex: 1
+  },
+  topNav: {
+    elevation: 10,
+    height: 70,
+    paddingTop: 20,
+    paddingHorizontal: 20,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    backgroundColor: 'white',
+    alignItems: 'center',
+  },
+  topRightNav: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    gap: 28,
+  },
+  icon: {
+    color: '#364966',
+  },
+  body: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: '#f0f2f5'
+  },
+  bottomNav: {
+    height: 60,
+    backgroundColor: 'white',
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    alignItems: 'center',
+    borderTopColor: '#E5E5E5',
+    borderStyle: 'solid',
+    borderTopWidth: 0.5,
+  },
+  tabButton: {
     alignItems: 'center',
     justifyContent: 'center',
+  },
+  selectedTab: {
+    color: '#fa4454',
   },
 });
