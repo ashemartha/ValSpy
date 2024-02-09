@@ -1,9 +1,9 @@
-import { StyleSheet,
+import { ScrollView,
+    StyleSheet,
     Text,
     TextInput,
     View } from 'react-native';
 
-import { SafeAreaView } from 'react-native-safe-area-context';
 import { useState } from 'react';
 
 export default function Search() {
@@ -13,9 +13,9 @@ export default function Search() {
       setSearchQuery(text);
     }
     return(
-      <SafeAreaView style={styles.container}>
+      <ScrollView contentContainerStyle={styles.container}>
         <TextInput placeholder='Search' value={SearchQuery} onChangeText={handleSearch} autoFocus={true}/>
-      </SafeAreaView>
+      </ScrollView>
     )
   }
 

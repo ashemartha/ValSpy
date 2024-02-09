@@ -1,6 +1,7 @@
 import { StyleSheet,
     Text,
-    View } from 'react-native';
+    View,
+    ScrollView } from 'react-native';
 
 import { SafeAreaView } from 'react-native-safe-area-context';
 
@@ -11,10 +12,10 @@ export default function Profile() {
     };
   
     return(
-      <SafeAreaView style={styles.container}>
+      <ScrollView contentContainerStyle={styles.container}>
         <Text>Username: {user.username}</Text>
         <Text>Level: {user.level}</Text>
-      </SafeAreaView>
+      </ScrollView>
     );
   }
 
