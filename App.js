@@ -1,3 +1,4 @@
+import React, { useState } from 'react';
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet,
   Text,
@@ -5,73 +6,54 @@ import { StyleSheet,
   View,
   Image,
   Platform } from 'react-native';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { useState } from 'react';
 import { TouchableOpacity } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
-
-const Tab = createBottomTabNavigator();
-
-function History() {
-  return(
-    <View>
-      <Text> History View </Text>
-    </View>
-  )
-}
-
-function Search() {
-  const [SearchQuery,setSearchQuery]=useState('');
-  const handleSearch=(text)=>{
-    console.log(text);
-    setSearchQuery(text);
-  }
-  return(
-    <SafeAreaView style={styles.container}>
-      <TextInput placeholder='Search' value={SearchQuery} onChangeText={handleSearch} autoFocus={true}/>
-    </SafeAreaView>
-  )
-}
-
-function Profile() {
-  const user={
-    username:'ashemartha',
-    level:52
-  };
-
-  return(
-    <SafeAreaView style={styles.container}>
-      <Text>Username: {user.username}</Text>
-      <Text>Level: {user.level}</Text>
-    </SafeAreaView>
-  );
-}
-
+import Home from './components/home';
+import Search from './components/search';
+import Profile from './components/profile';
+import History from './components/history';
 
 export default function App() {
-
+  
   const logo = require('./assets/logo.png');
+  const [selectedTab, setSelectedTab] = useState('Home');
+
+  let displayedComponent;
+  if (selectedTab === 'Home') {
+    displayedComponent = <Home />;
+  } else if (selectedTab === 'History') {
+    displayedComponent = <History />;
+  } else if (selectedTab === 'Profile') {
+    displayedComponent = <Profile />;
+  } else if (selectedTab === 'Search') {
+    displayedComponent = <Search />;
+  }
+
   return (
     <View style={styles.container}>
       <View style={styles.topNav}>
         <Image source={logo} style ={{ width: 98, height: 30 }}/>
         <View>
           <View style={styles.topRightNav}>
-            <Icon style={styles.icon} name="search" size={24} />
-            <Icon style={styles.icon} name="account-circle" size={24}/>
+            <TouchableOpacity onPress={() => setSelectedTab('Search')}>
+              <Icon style={styles.icon} name="search" size={24} />
+            </TouchableOpacity>
+            <TouchableOpacity onPress={() => setSelectedTab('Profile')}>
+              <Icon style={styles.icon} name="account-circle" size={24} />
+            </TouchableOpacity>
           </View>
         </View>
       </View>
       <View style={styles.body}>
-
+      {displayedComponent}
       </View>
       <View style={styles.bottomNav}>
-        <TouchableOpacity> 
+        <TouchableOpacity style={styles.tabButton} onPress={() => setSelectedTab('Home')}> 
           <Icon style={styles.icon} name="home" size={34}/>
           <Text>Home</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.tabButton}> 
+        <TouchableOpacity style={styles.tabButton} onPress={() => setSelectedTab('History')}> 
           <Icon style={styles.icon} name="history" size={34}/>
           <Text>History</Text>
         </TouchableOpacity>
