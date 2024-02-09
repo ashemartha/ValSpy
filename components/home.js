@@ -5,25 +5,28 @@ import { StyleSheet,
     Image, 
     TouchableOpacity} from 'react-native';
 
+import { getAgents } from '../services/standardRequestService';
+import { useEffect, useState } from 'react';
+
 export default function Home() {
+
+  const [agents, setAgents] = useState([]);
+
+  useEffect(() => {
+    getAgents().then(setAgents).catch(console.error);
+  }, []);
   
     return(
         <View style={styles.container}>
           <ScrollView contentContainerStyle={styles.scrollContainer} alwaysBounceVertical={true}>
             <Text>Agents</Text>
             <View style={styles.agentsContainer}>
-              <TouchableOpacity style={styles.agent}>
-                <Image source={require('../assets/favicon.png')} style={{width: 50, height: 50}} />
-                <Text>agent-name</Text>
+            {agents.filter(agent => agent.isPlayableCharacter).map((agent) => (
+              <TouchableOpacity key={agent.uuid} style={styles.agent}>
+                <Image source={{ uri: agent.displayIcon }} style={{width: 50, height: 50}} />
+                <Text style={{marginTop: 8}}>{agent.displayName}</Text>
               </TouchableOpacity>
-              <TouchableOpacity style={styles.agent}>
-                <Image source={require('../assets/favicon.png')} style={{width: 50, height: 50}} />
-                <Text>agent-name</Text>
-              </TouchableOpacity>
-              <TouchableOpacity style={styles.agent}>
-                <Image source={require('../assets/favicon.png')} style={{width: 50, height: 50}} />
-                <Text>agent-name</Text>
-              </TouchableOpacity>
+            ))}
             </View>
           </ScrollView>
         </View>
@@ -49,7 +52,9 @@ export default function Home() {
       alignItems: 'center',
     },
     agent: {
-      margin: 10,
+      width: 100,
+      height: 100,
+      margin: 8,
       padding: 10,
       backgroundColor: 'lightgrey',
       borderRadius: 10,
