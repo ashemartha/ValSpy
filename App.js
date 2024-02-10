@@ -1,26 +1,26 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, TextInput, View, ScrollView } from 'react-native';
+import { StyleSheet, Text, TextInput, View, ScrollView, Animated, TouchableOpacity } from 'react-native';
 import { NavigationContainer} from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { useState } from 'react';
+import React, { useState } from 'react';
 import Icon from 'react-native-vector-icons/MaterialIcons';
-import React  from 'react';
-import {  Animated, TouchableOpacity } from 'react-native';
+
+
 
 const Tab = createBottomTabNavigator();
 
-function History() {
+function History() {  
   return(
     <View>
-      <Text> History View </Text>
+      History
     </View>
   )
 }
 
 function Search() {
-  /*const [SearchQuery,setSearchQuery]=useState('');
+  const [SearchQuery,setSearchQuery]=useState('');
   const handleSearch=(text)=>{
     console.log(text);
     setSearchQuery(text);
@@ -29,31 +29,14 @@ function Search() {
     <SafeAreaView style={styles.container}>
       <TextInput placeholder='Search' value={SearchQuery} onChangeText={handleSearch} autoFocus={true}/>
     </SafeAreaView>
-  )*/
-  const value = useState(new Animated.VlaueXY({x: 0,y: 0}))[0]
-  function moveBall(){
-    
-  }
-  return(
-    <View>
-      <View>
-        <View style={{
-          width : 100,
-          height: 100,
-          borderRadius : 100 / 2,
-          backgroundColor: 'blue', 
-        }} />
-      </View>
-      <TouchableOpacity onPress={moveBall}>
-        <Text>
-          Hey click me !
-        </Text>
-      </TouchableOpacity>
-    </View>
   )
+  
 }
 
 function Profile() {
+  
+
+
   return(
     <ScrollView contentContainerStyle={styles.profileContainer} >
       <View style={styles.balanceContainer}>
@@ -87,7 +70,36 @@ function Profile() {
 
 
 export default function App() {
+  const leftValue = useState(new Animated.Value(0))[0]
+  function moveBall(){
+      Animated.spring(value , {
+        toValue : { x: 100, y: 100},
+        duration: 1000,
+        useNativeDriver: false,
+      }).start()
+    }
+  }
   return (
+    <View>
+      <View style={{ flex:1, justifyContent:'center',alignItems:'center'}}>
+        <Animated.View
+          style={{
+            width:100,
+            height:100,
+            borderRadius:100 / 2,
+            left:leftValue,
+            backgroundColor:'Blue',
+          }}
+        />
+    </View>
+    <TouchableOpacity onPress={moveBall}>
+      <Text>Click me !</Text>
+    </TouchableOpacity>
+</View>
+);
+
+/*
+return(
     <SafeAreaProvider>
       <NavigationContainer>
       <Tab.Navigator>
@@ -98,9 +110,9 @@ export default function App() {
     </NavigationContainer>
     </SafeAreaProvider>
     
-    
-  );
-}
+    );
+  
+}*/
 
 const styles = StyleSheet.create({
   container: {
